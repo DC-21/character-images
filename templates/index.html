@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Image Upload and Extract</title>
+  </head>
+  <body>
+    <h1>Upload an Image</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+      <input type="file" name="file" />
+      <input type="number" name="rows" placeholder="Rows" min="1" value="6" />
+      <input
+        type="number"
+        name="columns"
+        placeholder="Columns"
+        min="1"
+        value="5"
+      />
+      <input type="submit" value="Upload" />
+    </form>
+
+    {% if filename %}
+    <h2>Uploaded Image:</h2>
+    <img
+      src="{{ url_for('uploaded_file', filename=filename) }}"
+      alt="Uploaded Image"
+    />
+
+    <h2>Extracted Sprites:</h2>
+    <div>
+      {% for sprite in sprites %}
+      <img
+        src="{{ url_for('extracted_file', folder=extract_folder, filename=sprite) }}"
+        alt="Sprite"
+      />
+      {% endfor %}
+    </div>
+    {% endif %}
+  </body>
+</html>
